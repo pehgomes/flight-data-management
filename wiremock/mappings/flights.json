@@ -1,0 +1,51 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/flights",
+    "bodyPatterns": [
+      {
+        "matchesJsonPath": "$[?(@.from && @.to && @.outboundDate && @.inboundDate)]"
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "delayDistribution": {
+      "type": "lognormal",
+      "median": 1000,
+      "sigma": 0.3
+    },
+    "jsonBody": [
+      {
+        "carrier": "Lufthansa",
+        "basePrice": 200.00,
+        "tax": 50.00,
+        "departureAirportName": "FRA",
+        "arrivalAirportName": "LHR",
+        "outboundDateTime": "2025-10-10T10:00:00+02:00",
+        "inboundDateTime": "2025-10-15T18:00:00+02:00"
+      },
+      {
+        "carrier": "Air France",
+        "basePrice": 180.00,
+        "tax": 45.00,
+        "departureAirportName": "CDG",
+        "arrivalAirportName": "MAD",
+        "outboundDateTime": "2025-10-12T09:30:00+02:00",
+        "inboundDateTime": "2025-10-18T20:15:00+02:00"
+      },
+      {
+        "carrier": "KLM",
+        "basePrice": 220.00,
+        "tax": 55.00,
+        "departureAirportName": "AMS",
+        "arrivalAirportName": "BCN",
+        "outboundDateTime": "2025-10-11T07:45:00+02:00",
+        "inboundDateTime": "2025-10-17T19:30:00+02:00"
+      }
+    ]
+  }
+}
