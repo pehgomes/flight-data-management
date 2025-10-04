@@ -100,3 +100,22 @@ The WireMock server is packaged and managed via **Docker Compose**.
     java -jar target/flight-data-management-app.jar
     ```
     *Alternatively, run the main class `FlightManagementApplication` from your IDE.*
+
+---
+## ⚙️ Continuous Integration (CI) Pipeline
+
+The project uses **GitHub Actions** for Continuous Integration. The pipeline is responsible for maintaining code quality and ensuring the system is functional upon every code change.
+
+The CI workflow is defined in: **`.github/workflows/ci.yml`**
+
+### Pipeline Responsibilities:
+
+1.  **Code Checkout:** Fetches the latest code from the repository.
+2.  **Environment Setup:** Configures **Java 17** and enables **Maven Caching** to speed up subsequent builds.
+3.  **Build & Test:** Executes `mvn clean verify`, which includes compiling the code and running all unit and integration tests.
+4.  **Coverage Report:** Generates a code coverage report using **JaCoCo** (`mvn jacoco:report`).
+5.  **Artifact Upload:** Uploads the JaCoCo coverage report as an artifact (`jacoco-report`) for easy review.
+
+### Status and Monitoring
+
+The status of the pipeline can be monitored directly on the **Actions** tab of the GitHub repository.
