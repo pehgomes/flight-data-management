@@ -11,31 +11,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Checkout (Atualizado para v4)
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
+      # 2. Setup Java (Atualizado para v4)
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
+          cache: maven # Usamos 'cache: maven' em vez da action de cache separada, para simplificar
 
-      - name: Cache Maven packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+      # A action de Cache do Maven agora é integrada ao setup-java,
+      # tornando o bloco anterior de cache obsoleto e mais simples.
 
+      # 3. Build e Testes
       - name: Build with Maven
+        # Assumindo que seu comando 'mvn clean verify' roda testes e gera o relatório JaCoCo
         run: mvn clean verify
 
+      # 4. Geração do Relatório JaCoCo (Geralmente coberto pelo 'verify' acima, mas mantido)
       - name: Generate JaCoCo report
         run: mvn jacoco:report
 
+      # 5. Upload do Relatório (Atualizado para v4)
+      # Nota: A action 'actions/upload-artifact' agora é 'upload-artifact',
+      # e a sintaxe foi levemente simplificada, mas a v4 é a mais estável.
       - name: Upload coverage report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: jacoco-report
           path: target/site/jacoco
+          # Garante que o artefato não expire rapidamente
+          retention-days: 5
