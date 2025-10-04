@@ -102,7 +102,7 @@ The WireMock server is packaged and managed via **Docker Compose**.
     *Alternatively, run the main class `FlightManagementApplication` from your IDE.*
 
 ---
-## ⚙️ Continuous Integration (CI) Pipeline
+## Continuous Integration (CI) Pipeline
 
 The project uses **GitHub Actions** for Continuous Integration. The pipeline is responsible for maintaining code quality and ensuring the system is functional upon every code change.
 
